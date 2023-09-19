@@ -2,20 +2,16 @@
 
 import {
   Box,
-  chakra,
   Flex,
-  SimpleGrid,
   Stat,
   StatLabel,
   StatNumber,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { BsPerson } from "react-icons/bs";
-import { FiServer } from "react-icons/fi";
-import { GoLocation } from "react-icons/go";
+
 import { MdOutlineAttachMoney } from "react-icons/md";
 import fetch from "./fetch.jsx";
-import { color } from "framer-motion";
+
 
 const getValues = () => {
   return fetch();
@@ -34,7 +30,7 @@ const getPrices = () => {
   return count;
 };
 
-function formatMoney(amount) {
+export function formatMoney(amount) {
   return `R$${amount
     .toFixed(2)
     .replace(/\d(?=(\d{3})+\.)/g, "$&,")
@@ -85,14 +81,14 @@ function StatsCard(props) {
 export default function BasicStatistics() {
   return (
     <Box>
-      <chakra.h1
+      {/* <chakra.h1
         textAlign={"center"}
         fontSize={"4xl"}
         py={10}
         fontWeight={"bold"}
       >
         Caixa da Empresa
-      </chakra.h1>
+      </chakra.h1> */}
       <Flex justifyContent={"center"}>
         <StatsCard
           title={"Saldo"}

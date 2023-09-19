@@ -12,7 +12,13 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  Box,
+  flexbox,
+  Flex,
+  Text,
 } from "@chakra-ui/react";
+
+import { DeleteIcon } from "@chakra-ui/icons";
 import Axios from "axios";
 
 export default function Delete(props) {
@@ -20,14 +26,16 @@ export default function Delete(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const createAlert = (res) => {
-    const Error = ['Erro!', 'Não foi possível deletar!']
-    const Success = ['Sucesso!', 'A movimentação foi deletada com sucesso!']
+    const Error = ["Erro!", "Não foi possível deletar!"];
+    const Success = ["Sucesso!", "A movimentação foi deletada com sucesso!"];
     return (
       <>
-        <Alert status={res == 'error'? 'error' : 'success'}>
+        <Alert status={res == "error" ? "error" : "success"}>
           <AlertIcon />
-          <AlertTitle>{res == 'error'? Error[0] : Success[0]}</AlertTitle>
-          <AlertDescription>{res == 'error'? Error[1] : Success[1]}</AlertDescription>
+          <AlertTitle>{res == "error" ? Error[0] : Success[0]}</AlertTitle>
+          <AlertDescription>
+            {res == "error" ? Error[1] : Success[1]}
+          </AlertDescription>
         </Alert>
       </>
     );
@@ -40,17 +48,20 @@ export default function Delete(props) {
       })
       .catch((error) => {
         console.log(error);
-        createAlert('error')
+        createAlert("error");
       })
       .finally(() => {
-        createAlert('success')
+        createAlert("success");
         window.location.reload(false);
       });
   }
   return (
     <>
       <Button colorScheme="red" onClick={onOpen}>
-        Deletar
+        <Box boxSize={'full'} display={'flex'} flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
+          <DeleteIcon boxSize={5}/>
+          <Text paddingLeft={2}>Deletar</Text>
+        </Box>
       </Button>
 
       <AlertDialog isOpen={isOpen} onClose={onClose}>

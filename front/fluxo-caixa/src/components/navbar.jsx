@@ -1,5 +1,5 @@
-'use client'
-
+"use client";
+import { Outlet, Link } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -16,61 +16,57 @@ import {
   Stack,
   useColorMode,
   Center,
-} from '@chakra-ui/react'
-import { MoonIcon, SunIcon } from '@chakra-ui/icons'
-import Create from './create.jsx'
+} from "@chakra-ui/react";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import Create from "./create.jsx";
 
 const NavLink = (props) => {
-  const { children } = props
+  const { children } = props;
 
   return (
     <Box
       as="a"
       px={2}
       py={1}
-      rounded={'md'}
+      rounded={"md"}
       _hover={{
-        textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700'),
+        textDecoration: "none",
+        bg: useColorModeValue("gray.200", "gray.700"),
       }}
-      href={'#'}>
+      href={"#"}
+    >
       {children}
     </Box>
-  )
-}
+  );
+};
 
 export default function Nav() {
-  const { colorMode, toggleColorMode } = useColorMode()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { colorMode, toggleColorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Box bg={useColorModeValue('gray.100')} px={4}>
-        <Flex h={16} alignItems={'center'} justifyContent={'end'}>
+      <Box bg={useColorModeValue("gray.100")} px={4}>
+        <Flex h={16} alignItems={"center"} justifyContent={"end"}>
           <Create />
-          <Flex alignItems={'center'}>
-            <Stack direction={'row'} spacing={7}>
+          <Flex alignItems={"center"}>
+            <Stack direction={"row"} spacing={7}>
               <Button onClick={toggleColorMode}>
-                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
               <Menu>
                 <MenuButton
                   as={Button}
-                  rounded={'full'}
-                  variant={'link'}
-                  cursor={'pointer'}
-                  minW={0}>
-                  <Avatar
-                    size={'sm'}
-                    src={'./avatar.png'}
-                  />
+                  rounded={"full"}
+                  variant={"link"}
+                  cursor={"pointer"}
+                  minW={0}
+                >
+                  <Avatar size={"sm"} src={"./avatar.png"} />
                 </MenuButton>
-                <MenuList alignItems={'center'}>
+                <MenuList alignItems={"center"}>
                   <br />
                   <Center>
-                    <Avatar
-                      size={'2xl'}
-                      src={'./avatar.png'}
-                    />
+                    <Avatar size={"2xl"} src={"./avatar.png"} />
                   </Center>
                   <br />
                   <Center>
@@ -81,9 +77,15 @@ export default function Nav() {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Minha Assinatura</MenuItem>
-                  <MenuItem>Configurações</MenuItem>
-                  <MenuItem>Sair da Conta</MenuItem>
+                  <MenuItem>
+                    <Link to="/error">Minha Assinatura</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to="/profile">Configurações</Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to="/error">Sair da Conta</Link>
+                  </MenuItem>
                 </MenuList>
               </Menu>
             </Stack>
@@ -91,5 +93,5 @@ export default function Nav() {
         </Flex>
       </Box>
     </>
-  )
+  );
 }

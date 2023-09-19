@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import fetch from "./fetch.jsx";
 import Delete from "./delete.jsx";
-import Charts from "./charts.jsx";
 
 const getValues = () => {
   return fetch();
@@ -42,7 +41,6 @@ export default function Read() {
   const bills = getValues();
   return (
     <>
-      <Charts></Charts>
       <Flex justifyContent={"center"} marginTop={"60px"}>
         <TableContainer
           bg={useColorModeValue("white", "gray.900")}
@@ -68,7 +66,7 @@ export default function Read() {
                 <Th>Preço</Th>
                 <Th>Banco</Th>
                 <Th>Situação</Th>
-                <Th>Ações</Th>
+                <Th paddingLeft={50}>Ações</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -94,9 +92,9 @@ export default function Read() {
                       </Badge>
                     </Th>
                     <Th>
-                      <Button marginRight="1rem" colorScheme="yellow">
+                      {/* <Button marginRight="1rem" colorScheme="yellow">
                         Editar
-                      </Button>
+                      </Button> */}
                       <Delete id={bill._id} />
                     </Th>
                   </Tr>
