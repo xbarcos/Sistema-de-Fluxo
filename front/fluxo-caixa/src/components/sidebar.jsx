@@ -21,7 +21,7 @@ import Charts from './charts.jsx'
 
 const LinkItems = [
   { name: 'Página Principal', icon: FiHome, path: '/home' },
-  { name: 'Estatísticas', icon: FiTrendingUp, path: '/asdad' },
+  { name: 'Estatísticas', icon: FiTrendingUp, path: '/dashboard' },
   { name: 'Movimentações', icon: FiCompass, path: '/show' },
 ]
 
@@ -54,19 +54,20 @@ const SidebarContent = () => {
         <Text fontSize={'20px'} as={'b'} paddingLeft={'10px'}>Flux Networks</Text>
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          <Link to={link.path}>{link.name}</Link>          
+        <NavItem key={link.name} icon={link.icon} url={link.path}>
+          {link.name}
         </NavItem>
       ))}
     </Box>
   )
 }
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, children, props, ...rest }) => {
+  const { url } = rest
   return (
     <Box
       as="a"
-      href="#"
+      href={url}
       style={{ textDecoration: 'none' }}
       _focus={{ boxShadow: 'none' }}>
       <Flex

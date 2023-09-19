@@ -1,8 +1,8 @@
-import Read from './components/read.jsx'
-import Navbar from './components/navbar.jsx'
-import Sidebar from './components/sidebar.jsx'
-import NoPage from './pages/noPage.jsx'
-import Home from './pages/home.jsx'
+import Read from "./components/read.jsx";
+import Navbar from "./components/navbar.jsx";
+import Sidebar from "./components/sidebar.jsx";
+import NoPage from "./pages/noPage.jsx";
+import Home from "./pages/home.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -12,16 +12,12 @@ export default function App() {
     <ChakraProvider>
       <BrowserRouter>
         <Routes>
-          <Route index path="/" element={<Sidebar page={<Home />}/>} />
-            <Route path="/home" element={<Sidebar page={<Home />}/>} />
-            <Route path='show' element={<Sidebar page={<Read />}/>} />
-            <Route path="*" element={<NoPage />}/>
+          <Route path="/" element={<Sidebar page={<Home />} />} />
+          <Route index path="/home" element={<Sidebar page={<Home />} />} />
+          <Route path="show" element={<Sidebar page={<Read />} />} />
+          <Route path="*" element={<NoPage />} />
         </Routes>
-        
       </BrowserRouter>
     </ChakraProvider>
   );
 }
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);

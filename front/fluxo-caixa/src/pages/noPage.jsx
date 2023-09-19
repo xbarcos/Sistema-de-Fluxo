@@ -1,4 +1,4 @@
-import { Text, Center, Flex } from "@chakra-ui/react";
+import { Text, Center, Flex, Image } from "@chakra-ui/react";
 export default function NoPage() {
   return (
     <>
@@ -10,6 +10,7 @@ export default function NoPage() {
           <Text>Parece que a página que você está procurando não existe!</Text>
         </Center>
       </Flex>
+      <Image src="404-error.png"></Image>
     </>
   );
 }
