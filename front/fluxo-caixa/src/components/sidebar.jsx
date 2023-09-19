@@ -1,5 +1,5 @@
 'use client'
-
+import { Outlet, Link } from 'react-router-dom'
 import React, { ReactNode } from 'react'
 import {
   Box,
@@ -20,12 +20,12 @@ import Navbar from './navbar.jsx'
 import Charts from './charts.jsx'
 
 const LinkItems = [
-  { name: 'Página Principal', icon: FiHome },
-  { name: 'Estatísticas', icon: FiTrendingUp },
-  { name: 'Movimentações', icon: FiCompass },
+  { name: 'Página Principal', icon: FiHome, path: '/home' },
+  { name: 'Estatísticas', icon: FiTrendingUp, path: '/asdad' },
+  { name: 'Movimentações', icon: FiCompass, path: '/show' },
 ]
 
-export default function SimpleSidebar(props) {
+export default function Sidebar(props) {
   const { page } = props
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100')}>
@@ -55,7 +55,7 @@ const SidebarContent = () => {
       </Flex>
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon}>
-          {link.name}
+          <Link to={link.path}>{link.name}</Link>          
         </NavItem>
       ))}
     </Box>
