@@ -1,7 +1,7 @@
 # Sistema de Fluxo
 # :us:
 ### Author: [João Marcos B. S. Pereira](https://www.linkedin.com/in/xbarcos/)
-### This project is at developing stage
+### This project is at development stage
 
 ## What is the project?
 This project is a cash flow application, to help companies be up to date with their accounts and the current balance of the company
