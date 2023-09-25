@@ -20,12 +20,13 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
+import Confirm from './confirm-modal.jsx'
+import { formatDate } from "./read";
 
 export default function Create() {
   function validatePrice(value) {
     return value.replace(".", "").replace(",", ".");
   }
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -33,13 +34,17 @@ export default function Create() {
   const [situation, setSituation] = useState("Entrada");
   const [date, setDate] = useState("");
 
+  const body = `Deseja incluir ${name} no valor de ${price} para as contas do próximo mês?`;
+  const header = "Nova Entrada";
+  const color = "green";
+
   const submitValue = () => {
     const data = {
       name: name,
       price: validatePrice(price),
       bank: bank,
       situation: situation,
-      date: date
+      date: date,
     };
     fetch(data);
   };
@@ -80,6 +85,21 @@ export default function Create() {
                 <option value="Entrada">Entrada</option>
                 <option value="Saída">Saída</option>
               </Select>
+              <FormLabel>Parcelamento</FormLabel>
+              <Select onChange={(e) => setSituation(e.target.value)}>
+                <option default value="1">1x</option>
+                <option value="2">2x</option>
+                <option value="3">3x</option>
+                <option value="4">4x</option>
+                <option value="5">5x</option>
+                <option value="6">6x</option>
+                <option value="7">7x</option>
+                <option value="8">8x</option>
+                <option value="9">9x</option>
+                <option value="10">10x</option>
+                <option value="11">11x</option>
+                <option value="12">12x</option>
+              </Select>
               <FormLabel>Banco</FormLabel>
               <Select
                 isDisabled={situation === "Entrada" ? true : false}
@@ -118,6 +138,7 @@ export default function Create() {
             >
               Criar nova entrada
             </Button>
+            {/* <Confirm name={name} situation={situation} date={date}/> */}
           </ModalFooter>
         </ModalContent>
       </Modal>

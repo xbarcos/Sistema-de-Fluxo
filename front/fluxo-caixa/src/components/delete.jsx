@@ -17,27 +17,42 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
+import { formatDate, formatMoney } from "./read";
 
 import { DeleteIcon } from "@chakra-ui/icons";
 import Axios from "axios";
 
 export default function Delete(props) {
-  const { id } = props;
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onOpen, isOpen, onClose } = useDisclosure();
+  const { id, name, price, date, situation } = props;
+  const header = "Deletar";
+  const body = `Deseja cancelar a ${situation.toLowerCase()} de nome ${name}, referente ao dia ${formatDate(
+    date
+  )} no valor de ${formatMoney(price)}?`;
+  const color = "red";
 
-  const createAlert = (res) => {
-    const Error = ["Erro!", "Não foi possível deletar!"];
-    const Success = ["Sucesso!", "A movimentação foi deletada com sucesso!"];
+  const createOverlay = () => {
     return (
-      <>
-        <Alert status={res == "error" ? "error" : "success"}>
-          <AlertIcon />
-          <AlertTitle>{res == "error" ? Error[0] : Success[0]}</AlertTitle>
-          <AlertDescription>
-            {res == "error" ? Error[1] : Success[1]}
-          </AlertDescription>
-        </Alert>
-      </>
+      <AlertDialog isOpen={isOpen} onClose={onClose}>
+        <AlertDialogOverlay>
+          <AlertDialogContent marginLeft={200}>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              {header}
+            </AlertDialogHeader>
+            <AlertDialogBody>{body}</AlertDialogBody>
+            <AlertDialogFooter>
+              <Button onClick={onClose}>Cancelar</Button>
+              <Button
+                colorScheme={color}
+                onClick={() => deleteRequest(id)}
+                ml={3}
+              >
+                Deletar
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     );
   };
 
@@ -48,46 +63,18 @@ export default function Delete(props) {
       })
       .catch((error) => {
         console.log(error);
-        createAlert("error");
       })
       .finally(() => {
-        createAlert("success");
         window.location.reload(false);
       });
   }
+
   return (
     <>
-      <Button colorScheme="red" onClick={onOpen}>
-        <Box boxSize={'full'} display={'flex'} flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
-          <DeleteIcon boxSize={5}/>
-          <Text paddingLeft={2}>Deletar</Text>
-        </Box>
+      <Button colorScheme="red" onClick={onOpen} size={"sm"}>
+        <DeleteIcon boxSize={5} />
       </Button>
-
-      <AlertDialog isOpen={isOpen} onClose={onClose}>
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Deletar
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              Você tem certeza? Não tem como voltar atrás depois de deletar!
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button onClick={onClose}>Cancelar</Button>
-              <Button
-                colorScheme="red"
-                onClick={() => deleteRequest(id)}
-                ml={3}
-              >
-                Deletar
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+      {createOverlay()}
     </>
   );
 }

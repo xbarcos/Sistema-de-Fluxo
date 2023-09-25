@@ -12,9 +12,9 @@ import {
   Image,
   Text,
 } from '@chakra-ui/react'
-import { FiServer } from 'react-icons/fi'
+import { Outlet, Link } from "react-router-dom";
 import { GoLocation } from 'react-icons/go'
-import Charts from '../components/charts.jsx'
+import Charts, { getPricesByDate, getPricesBySituation } from '../components/charts.jsx'
 
 function StatsCard(props) {
   const { title, stat, icon } = props
@@ -57,8 +57,8 @@ export default function Home() {
         Essas são as estatísticas atuais da sua empresa:
       </chakra.h2>
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-        <Charts />
-        <StatsCard title={'Movimentações'} stat={'3'} icon={<FiServer size={'3em'} />} />
+        <Link to="/show"><Charts title="Saldo" value={getPricesBySituation()} /></Link>
+        <Link to="/next"><Charts title="Saldo dos Próximos Meses" value={getPricesByDate()}/></Link>
         <StatsCard title={'Filiais'} stat={'7'} icon={<GoLocation size={'3em'} />} />
       </SimpleGrid>
       <Flex padding={200} h="20" alignItems="center" mx="8" justifyContent={'center'} flexDirection={'column'}> {/* Logo da Empresa */}

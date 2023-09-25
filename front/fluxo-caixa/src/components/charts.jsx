@@ -11,24 +11,41 @@ import {
 
 import { MdOutlineAttachMoney } from "react-icons/md";
 import fetch from "./fetch.jsx";
+import moment from 'moment';
 
-
-const getValues = () => {
+export const getValues = () => {
   return fetch();
 };
 
-const getPrices = () => {
-  const bills = getValues();
+export const getPricesBySituation = () => {
+  const values = getValues();
   let count = 0;
-  bills.forEach((bill) => {
-    if (bill.situation.toLowerCase() == "entrada") {
-      count += bill.price;
-    } else {
-      count -= bill.price;
+  values.forEach((value) => {
+    if (moment(value.date) <= moment()) {
+      if (value.situation.toLowerCase() == "entrada") {
+        count += value.price;
+      } else {
+        count -= value.price;
+      }
     }
   });
   return count;
 };
+
+export const getPricesByDate = () => {
+  const values = getValues();
+  let count = 0
+  values.map((value)=>{
+    if (moment(value.date).fromNow().includes("in")) {
+      if (value.situation.toLowerCase() == "entrada") {
+        count += value.price;
+      } else {
+        count -= value.price;
+      }
+    }
+  });
+  return count;
+}
 
 export function formatMoney(amount) {
   return `R$${amount
@@ -48,20 +65,24 @@ function StatsCard(props) {
       py={"5"}
       maxWidth={"md"}
       bg={useColorModeValue("white", "gray.900")}
+      _hover={{
+        background: useColorModeValue("gray.800", "white"),
+        color: useColorModeValue("white", "black"),
+      }}
       shadow={"xl"}
       border={"1px solid"}
       borderColor={useColorModeValue("gray.800", "gray.500")}
       rounded={"lg"}
     >
       <Flex justifyContent={"space-between"}>
-        <Box pl={{ base: 2, md: 4 }}>
+        <Box pl={{ base: 2, md: 4 }} >
           <StatLabel fontWeight={"medium"} isTruncated>
             {title}
           </StatLabel>
           <StatNumber
             fontSize={"2xl"}
             fontWeight={"medium"}
-            color={getPrices() >= 0 ? "green" : "red"}
+            color={getPricesBySituation() >= 0 ? "green" : "red"}
           >
             {formatMoney(stat)}
           </StatNumber>
@@ -78,21 +99,14 @@ function StatsCard(props) {
   );
 }
 
-export default function BasicStatistics() {
+export default function BasicStatistics(props) {
+  const { title, value } = props;
   return (
     <Box>
-      {/* <chakra.h1
-        textAlign={"center"}
-        fontSize={"4xl"}
-        py={10}
-        fontWeight={"bold"}
-      >
-        Caixa da Empresa
-      </chakra.h1> */}
       <Flex justifyContent={"center"}>
         <StatsCard
-          title={"Saldo"}
-          stat={getPrices()}
+          title={title}
+          stat={value}
           icon={<MdOutlineAttachMoney size={"3em"} />}
         />
       </Flex>

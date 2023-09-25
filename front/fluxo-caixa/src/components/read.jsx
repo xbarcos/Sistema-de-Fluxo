@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useState } from "react";
 import {
   Table,
   Thead,
@@ -6,38 +6,38 @@ import {
   Tr,
   Th,
   TableContainer,
-  Box,
   Flex,
-  Button,
   Badge,
   useColorModeValue,
-  border,
   chakra,
   Center,
 } from "@chakra-ui/react";
 import fetch from "./fetch.jsx";
 import Delete from "./delete.jsx";
+import Pagination from "./pagination.jsx";
+import Moment from "moment";
+import 'moment/locale/pt-br'
+Moment.locale('pt-br')
 
 const getValues = () => {
   return fetch();
 };
-
+export function formatDate(date) {
+  let year = date.slice(0, 4);
+  let month = date.slice(5, 7);
+  let day = date.slice(8, 10);
+  let tempDate = `${day}-${month}-${year}`;
+  return tempDate.replaceAll("-", "/");
+}
+export function formatMoney(amount) {
+  return `R$${amount
+    .toFixed(2)
+    .replace(/\d(?=(\d{3})+\.)/g, "$&,")
+    .replace(".", "x")
+    .replace(",", ".")
+    .replace("x", ",")}`;
+}
 export default function Read() {
-  function formatDate(date) {
-    let year = date.slice(0, 4);
-    let month = date.slice(5, 7);
-    let day = date.slice(8, 10);
-    let tempDate = `${day}-${month}-${year}`;
-    return tempDate.replaceAll("-", "/");
-  }
-  function formatMoney(amount) {
-    return `R$${amount
-      .toFixed(2)
-      .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-      .replace(".", "x")
-      .replace(",", ".")
-      .replace("x", ",")}`;
-  }
   const bills = getValues();
   return (
     <>
@@ -51,11 +51,11 @@ export default function Read() {
           <Flex justifyContent={"center"}>
             <chakra.h1
               textAlign={"center"}
-              fontSize={"4xl"}
+              fontSize={"3xl"}
               py={10}
               fontWeight={"bold"}
             >
-              Movimentações
+              Movimentações do mês de {Moment().format('MMMM')}
             </chakra.h1>
           </Flex>
           <Table variant="simple" marginTop={"50px"}>
@@ -66,42 +66,50 @@ export default function Read() {
                 <Th>Preço</Th>
                 <Th>Banco</Th>
                 <Th>Situação</Th>
-                <Th paddingLeft={50}>Ações</Th>
+                <Th>Ações</Th>
               </Tr>
             </Thead>
             <Tbody>
               {bills.map((bill, key) => {
-                return (
-                  <Tr key={key}>
-                    <Th>{formatDate(bill.date)}</Th>
-                    <Th>{bill.name}</Th>
-                    <Th>{formatMoney(bill.price)}</Th>
-                    <Th>{bill.bank}</Th>
-                    <Th>
-                      <Badge
-                        padding={"4px"}
-                        width={"70px"}
-                        variant={"solid"}
-                        colorScheme={
-                          bill.situation.toLowerCase() == "entrada"
-                            ? "green"
-                            : "red"
-                        }
-                      >
-                        <Center>{bill.situation}</Center>
-                      </Badge>
-                    </Th>
-                    <Th>
-                      {/* <Button marginRight="1rem" colorScheme="yellow">
-                        Editar
-                      </Button> */}
-                      <Delete id={bill._id} />
-                    </Th>
-                  </Tr>
-                );
+                if (Moment(bill.date) < Moment()) {
+                  return (
+                    <Tr key={key}>
+                      <Th>{formatDate(bill.date)}</Th>
+                      <Th>{bill.name}</Th>
+                      <Th>{formatMoney(bill.price)}</Th>
+                      <Th>{bill.bank}</Th>
+                      <Th>
+                        <Badge
+                          padding={"4px"}
+                          width={"70px"}
+                          variant={"solid"}
+                          colorScheme={
+                            bill.situation.toLowerCase() == "entrada"
+                              ? "green"
+                              : "red"
+                          }
+                        >
+                          <Center>{bill.situation}</Center>
+                        </Badge>
+                      </Th>
+                      <Th>
+                        <Delete
+                          id={bill._id}
+                          name={bill.name}
+                          price={bill.price}
+                          date={bill.date}
+                          situation={bill.situation}
+                        />
+                      </Th>
+                    </Tr>
+                  );
+                }
               })}
             </Tbody>
           </Table>
+          <Flex justifyContent={"center"}>
+            <Pagination limit={12} total={500} offset={10} setOffset={240} />
+          </Flex>
         </TableContainer>
       </Flex>
     </>

@@ -9,17 +9,17 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import { FiHome, FiTrendingUp, FiCompass } from "react-icons/fi";
+import { FiHome, FiTrendingUp, FiCompass, FiTag } from "react-icons/fi";
 
 import Read from "./read.jsx";
 import Navbar from "./navbar.jsx";
 import Charts from "./charts.jsx";
-import Footer from "./footer.jsx";
 
 const LinkItems = [
   { name: "Página Principal", icon: FiHome, path: "/home" },
   { name: "Estatísticas", icon: FiTrendingUp, path: "/dashboard" },
   { name: "Movimentações", icon: FiCompass, path: "/show" },
+  { name: "Movimentações Futuras", icon: FiTag, path:"/next" }
 ];
 
 export default function Sidebar(props) {
@@ -34,7 +34,6 @@ export default function Sidebar(props) {
         </Box>
         <Outlet />
       </Box>
-      <Footer />
     </Flex>
   );
 }
