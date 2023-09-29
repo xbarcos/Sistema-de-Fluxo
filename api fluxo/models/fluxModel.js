@@ -21,7 +21,11 @@ const fluxSchema = mongoose.Schema(
         date: {
             type: Date,
             required: true
-        }
+        },
+        accomplished: {
+            type: Boolean,
+            required: true
+        },
     },
     {
         timestamps: true

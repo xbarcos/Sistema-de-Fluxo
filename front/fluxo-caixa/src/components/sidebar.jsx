@@ -14,11 +14,12 @@ import { FiHome, FiTrendingUp, FiCompass, FiTag } from "react-icons/fi";
 import Read from "./read.jsx";
 import Navbar from "./navbar.jsx";
 import Charts from "./charts.jsx";
+import Graphs from "./graphics.jsx"
 
 const LinkItems = [
   { name: "Página Principal", icon: FiHome, path: "/home" },
   { name: "Estatísticas", icon: FiTrendingUp, path: "/dashboard" },
-  { name: "Movimentações", icon: FiCompass, path: "/show" },
+  { name: "Movimentações Efetuadas", icon: FiCompass, path: "/show" },
   { name: "Movimentações Futuras", icon: FiTag, path:"/next" }
 ];
 

@@ -70,7 +70,7 @@ app.post('/bills', async(req, res) => {
 app.put('/bills/:id', async(req, res) => {
     try {
         const {id} = req.params;
-        const bill = await bill.findByIdAndUpdate(id, req.body);
+        const bill = await Flux.findByIdAndUpdate(id, req.body);
         // we cannot find any bill in database
         if(!bill){
             return res.status(404).json({message: `cannot find any bill with ID ${id}`})

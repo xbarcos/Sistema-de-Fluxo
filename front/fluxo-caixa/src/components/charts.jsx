@@ -21,7 +21,7 @@ export const getPricesBySituation = () => {
   const values = getValues();
   let count = 0;
   values.forEach((value) => {
-    if (moment(value.date) <= moment()) {
+    if (value.accomplished) {
       if (value.situation.toLowerCase() == "entrada") {
         count += value.price;
       } else {
@@ -36,7 +36,7 @@ export const getPricesByDate = () => {
   const values = getValues();
   let count = 0
   values.map((value)=>{
-    if (moment(value.date).fromNow().includes("in")) {
+    if (!value.accomplished) {
       if (value.situation.toLowerCase() == "entrada") {
         count += value.price;
       } else {
@@ -82,7 +82,7 @@ function StatsCard(props) {
           <StatNumber
             fontSize={"2xl"}
             fontWeight={"medium"}
-            color={getPricesBySituation() >= 0 ? "green" : "red"}
+            color={stat >= 0 ? "green" : "red"}
           >
             {formatMoney(stat)}
           </StatNumber>

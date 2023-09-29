@@ -11,13 +11,15 @@ import {
   useColorModeValue,
   chakra,
   Center,
+  Text,
+  Button,
 } from "@chakra-ui/react";
+import { Outlet, Link } from "react-router-dom";
 import fetch from "./fetch.jsx";
 import Delete from "./delete.jsx";
 import Pagination from "./pagination.jsx";
 import Moment from "moment";
-import 'moment/locale/pt-br'
-Moment.locale('pt-br')
+import "moment/locale/pt-br";
 
 const getValues = () => {
   return fetch();
@@ -38,6 +40,7 @@ export function formatMoney(amount) {
     .replace("x", ",")}`;
 }
 export default function Read() {
+  Moment.locale("pt-br");
   const bills = getValues();
   return (
     <>
@@ -55,9 +58,12 @@ export default function Read() {
               py={10}
               fontWeight={"bold"}
             >
-              Movimentações do mês de {Moment().format('MMMM')}
+              Movimentações
             </chakra.h1>
           </Flex>
+          <Text textAlign={"center"} fontSize={"2x1"} fontWeight={"light"}>
+            Essas são as movimentações que já foram feitas até o momento
+          </Text>
           <Table variant="simple" marginTop={"50px"}>
             <Thead>
               <Tr>
@@ -67,11 +73,12 @@ export default function Read() {
                 <Th>Banco</Th>
                 <Th>Situação</Th>
                 <Th>Ações</Th>
+                <Th>Link</Th>
               </Tr>
             </Thead>
             <Tbody>
               {bills.map((bill, key) => {
-                if (Moment(bill.date) < Moment()) {
+                if (bill.accomplished) {
                   return (
                     <Tr key={key}>
                       <Th>{formatDate(bill.date)}</Th>
@@ -100,6 +107,16 @@ export default function Read() {
                           date={bill.date}
                           situation={bill.situation}
                         />
+                      </Th>
+                      <Th>
+                        <Link to={"/bill/" + bill._id}>
+                          <Button
+                            colorScheme="cyan"
+                            size={"sm"}
+                          >
+                            Detalhes
+                          </Button>
+                        </Link>
                       </Th>
                     </Tr>
                   );

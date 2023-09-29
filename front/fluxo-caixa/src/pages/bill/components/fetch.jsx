@@ -1,12 +1,12 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
+import Axios from "axios";
 
-export default function fetch() {
+const Fetch = (id) => {
   const [bills, setBills] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/bills")
+    Axios
+      .get(`http://localhost:3000/bills/${id}`)
       .then((response) => {
         setBills(response.data);
       })
@@ -15,5 +15,5 @@ export default function fetch() {
       });
   }, []);
   return bills;
-}
-
+};
+export default Fetch;

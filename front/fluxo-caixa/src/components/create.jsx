@@ -22,6 +22,7 @@ import {
 } from "@chakra-ui/react";
 import Confirm from './confirm-modal.jsx'
 import { formatDate } from "./read";
+import moment from 'moment';
 
 export default function Create() {
   function validatePrice(value) {
@@ -45,9 +46,14 @@ export default function Create() {
       bank: bank,
       situation: situation,
       date: date,
+      accomplished: acomplish()
     };
     fetch(data);
   };
+
+  const acomplish = () => {
+    return moment(date) <= moment() ? true : false;
+  }
   return (
     <>
       <Button onClick={onOpen} marginRight={"10px"} colorScheme="green">
@@ -152,7 +158,6 @@ async function fetch(data) {
       "Content-Type": "aplication/json",
     },
   };
-  console.log(data);
   await Axios.post("http://localhost:3000/bills", data)
     .then((response) => {
       console.log(response);

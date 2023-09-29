@@ -3,6 +3,7 @@ import fetch from "../components/fetch.jsx";
 import Delete from "../components/delete.jsx";
 import { formatDate, formatMoney } from "../components/read";
 import { getPricesByDate, getValues } from "../components/charts.jsx";
+import { Outlet, Link } from "react-router-dom";
 import {
   Table,
   Thead,
@@ -16,16 +17,17 @@ import {
   chakra,
   Center,
   Text,
+  Button,
 } from "@chakra-ui/react";
 import moment from "moment";
-import Charts from "../components/charts.jsx"
+import Charts from "../components/charts.jsx";
 
 export const NextMonthsValues = () => {
   const values = getValues();
   return (
     <>
       {values.map((value, key) => {
-        if (moment(value.date) > moment()) {
+        if (!value.accomplished) {
           return (
             <Tr key={key}>
               <Th>{formatDate(value.date)}</Th>
@@ -53,6 +55,11 @@ export const NextMonthsValues = () => {
                   situation={value.situation}
                 />
               </Th>
+              <Th>
+                <Link to={"/bill/" + value._id}>
+                  <Button colorScheme="cyan" size={"sm"}>Detalhes</Button>
+                </Link>
+              </Th>
             </Tr>
           );
         }
@@ -64,7 +71,7 @@ export const NextMonthsValues = () => {
 const NextPayments = () => {
   return (
     <>
-			<Charts title="Saldo Previsto" value={getPricesByDate()}/>
+      <Charts title="Saldo Previsto" value={getPricesByDate()} />
       <Flex justifyContent={"center"} marginTop={"60px"}>
         <TableContainer
           bg={useColorModeValue("white", "gray.900")}
@@ -95,6 +102,7 @@ const NextPayments = () => {
                 <Th>Banco</Th>
                 <Th>Situação</Th>
                 <Th>Ações</Th>
+                <Th>Link</Th>
               </Tr>
             </Thead>
             <Tbody>

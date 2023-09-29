@@ -71,8 +71,8 @@ export default function Delete(props) {
 
   return (
     <>
-      <Button colorScheme="red" onClick={onOpen} size={"sm"}>
-        <DeleteIcon boxSize={5} />
+      <Button leftIcon={<DeleteIcon />} colorScheme="red" onClick={onOpen} size="sm">
+        Deletar
       </Button>
       {createOverlay()}
     </>
