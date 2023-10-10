@@ -1,4 +1,4 @@
-# Sistema de Fluxo
+# Flux Networks
 # :us:
 ### Author: [João Marcos B. S. Pereira](https://www.linkedin.com/in/xbarcos/)
 ### This project is at development stage
@@ -7,6 +7,7 @@
 This project is a cash flow application, to help companies be up to date with their accounts and the current balance of the company
 ### This project is being developed in **Vite+React**, using **ChakraUI**, with a backend based on **Node.Js** and the Database using a NO-SQL system, **MongoDB**.
 
+<img src="https://i.imgur.com/8gUMh9c.png">
 
 ## How to start the project
 ### Back-End
