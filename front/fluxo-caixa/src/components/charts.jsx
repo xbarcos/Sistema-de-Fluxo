@@ -47,6 +47,17 @@ export const getPricesByDate = () => {
   return count;
 }
 
+export const getAccomplished = () => {
+  const values = getValues();
+  let count = 0;
+  values.forEach((value)=>{
+    if (value.accomplished){
+      count += 1
+    }
+  })
+  return count;
+}
+
 export function formatMoney(amount) {
   return `R$${amount
     .toFixed(2)
@@ -66,12 +77,11 @@ function StatsCard(props) {
       maxWidth={"md"}
       bg={useColorModeValue("white", "gray.900")}
       _hover={{
-        background: useColorModeValue("gray.800", "white"),
-        color: useColorModeValue("white", "black"),
+        background: useColorModeValue("cyan.400", "cyan.800")
       }}
       shadow={"xl"}
-      border={"1px solid"}
-      borderColor={useColorModeValue("gray.800", "gray.500")}
+      border={"2px solid"}
+      borderColor={useColorModeValue("cyan.400", "cyan.800")}
       rounded={"lg"}
     >
       <Flex justifyContent={"space-between"}>
@@ -82,7 +92,7 @@ function StatsCard(props) {
           <StatNumber
             fontSize={"2xl"}
             fontWeight={"medium"}
-            color={stat >= 0 ? "green" : "red"}
+            color={stat >= 0 ? useColorModeValue("green.600", "green.200") : useColorModeValue("red.400", "red.200")}
           >
             {formatMoney(stat)}
           </StatNumber>

@@ -19,11 +19,11 @@ function StatsCard(props) {
       maxWidth={"md"}
       bg={useColorModeValue("white", "gray.900")}
       _hover={{
-        background: useColorModeValue("cyan.100", "brand.700"),
+        background: useColorModeValue("cyan.400", "cyan.800"),
       }}
       shadow={"xl"}
       border={"2px solid"}
-      borderColor={useColorModeValue("gray.800", "cyan.800")}
+      borderColor={useColorModeValue("cyan.400", "cyan.800")}
       rounded={"lg"}
 			role="group"
     >

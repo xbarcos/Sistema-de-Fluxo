@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import Axios from "axios";
 import {
   Modal,
@@ -23,6 +23,8 @@ import {
 import Confirm from './confirm-modal.jsx'
 import { formatDate } from "./read";
 import moment from 'moment';
+import { showToast } from './toast.jsx'
+import { redirect } from 'react-router-dom'
 
 export default function Create() {
   function validatePrice(value) {
@@ -34,12 +36,13 @@ export default function Create() {
   const [bank, setBank] = useState("Caixa Empresa");
   const [situation, setSituation] = useState("Entrada");
   const [date, setDate] = useState("");
+  const toast = showToast()
 
   const body = `Deseja incluir ${name} no valor de ${price} para as contas do próximo mês?`;
   const header = "Nova Entrada";
   const color = "green";
 
-  const submitValue = () => {
+  const submitValue = async () => {
     const data = {
       name: name,
       price: validatePrice(price),
@@ -144,7 +147,6 @@ export default function Create() {
             >
               Criar nova entrada
             </Button>
-            {/* <Confirm name={name} situation={situation} date={date}/> */}
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -160,10 +162,11 @@ async function fetch(data) {
   };
   await Axios.post("http://localhost:3000/bills", data)
     .then((response) => {
-      console.log(response);
+      const { data } = response;
+      window.location.replace(`/bill/${data._id}`);
+      console.log(data);
     })
     .catch((error) => {
       console.log(error);
-    })
-    .finally(() => window.location.reload(false));
+    });
 }

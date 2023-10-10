@@ -15,7 +15,7 @@ const AccomplishBill = async (bill) => {
     .catch((error) => {
       console.log(error);
     })
-    .finally(() => window.location.reload(false));
+    .finally(() => window.location.replace("/show"));
 }
 
 const Accomplish = (props) => {

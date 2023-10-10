@@ -76,8 +76,9 @@ const NextPayments = () => {
         <TableContainer
           bg={useColorModeValue("white", "gray.900")}
           borderRadius={"25px"}
-          border={"1px solid"}
-          borderColor={useColorModeValue("gray.800", "gray.500")}
+          shadow={"xl"}
+          border={"2px solid"}
+          borderColor={useColorModeValue("cyan.400", "cyan.800")}
         >
           <Flex justifyContent={"center"}>
             <chakra.h1
@@ -93,7 +94,7 @@ const NextPayments = () => {
             Essas são as movimentações previstas para acontecerem nos próximos
             meses
           </Text>
-          <Table variant="simple" marginTop={"50px"}>
+          <Table variant="striped" colorScheme="blue" marginTop={"50px"}>
             <Thead>
               <Tr>
                 <Th>Data</Th>

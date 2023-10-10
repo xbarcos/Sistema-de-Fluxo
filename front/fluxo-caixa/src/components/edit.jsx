@@ -5,12 +5,12 @@ import Axios from "axios";
 async function EditRequest(id) {
   await Axios.put(`http://localhost:3000/bills/${id}`)
     .then((response) => {
+      window.location.replace(`/show`);
       console.log(response);
     })
     .catch((error) => {
       console.log(error);
-    })
-    .finally(() => window.location.reload(false));
+    });
 }
 export const Edit = (props) => {
   const { id } = props;

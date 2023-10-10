@@ -49,9 +49,9 @@ const SidebarContent = () => {
       pos="fixed"
       h="full"
     >
-      <Flex paddingTop={"50px"} h="20" alignItems="center" mx="8">
-        <Image filter={"invert"} boxSize={"50px"} src="./logo.png"></Image>
-        <Text fontSize={"20px"} as={"b"} paddingLeft={"10px"}>
+      <Flex paddingTop={"50px"} h="20" alignItems="center" justifyContent={'center'} mx="8" textAlign={'center'}>
+        <Image boxSize={"50px"} src="./logo.png"></Image>
+        <Text fontSize={"20px"} as={"b"}>
           Flux Networks
         </Text>
       </Flex>
